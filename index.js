@@ -1,3 +1,7 @@
+'use strict';
+
+const assert = require('assert');
+
 class BankAccount {
     constructor(accountNumber, owner) {
         this.accountNumber = accountNumber;
@@ -67,3 +71,39 @@ mySavingsAccount.deposit(200, "Andrea")
 console.log(mySavingsAccount)
 mySavingsAccount.accrueInterest()
 console.log(mySavingsAccount)
+
+
+if (typeof describe === 'function') {
+
+    describe('#BankAccount', () => {
+        it('should make the correct bank account', () => {
+          const bankaccount = new BankAccount(555, "Lord")
+          bankaccount.deposit(5000, "Mom")
+          bankaccount.charge(3000, "Hotel")
+          assert.equal(bankaccount.accountNumber, 555);
+          assert.equal(bankaccount.owner, "Lord");
+          assert.equal(bankaccount.balance(), 2000)
+        });
+    });
+
+    describe('#SavingsAccount', () => {
+        it('should make the correct savings account', () => {
+          const savingsaccount = new SavingsAccount(999, "Mr. Know It All", 0.05)
+          assert.equal(savingsaccount.accountNumber, 999);
+          assert.equal(savingsaccount.owner, "Mr. Know It All");
+          assert.equal(savingsaccount.interestRate, 0.05);
+          savingsaccount.deposit(1000, "IRS Tax Refund")
+          savingsaccount.accrueInterest(); // +50
+          assert.equal(savingsaccount.balance(), 1050);
+        });
+    });
+
+    describe('#SavingsAccount', () => {
+        it('should end with the correct balance', () => {
+          const savingsaccount = new SavingsAccount(999, "Mr. Know It All", 0.05) // have to redefine due to function scope
+          savingsaccount.deposit(1000, "IRS Tax Refund")
+          savingsaccount.accrueInterest(); // +50
+          assert.equal(savingsaccount.balance(), 1050);
+        });
+    });
+}
