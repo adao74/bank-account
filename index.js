@@ -37,7 +37,7 @@ class BankAccount {
 
 class Transaction {
     constructor(amount, payee) {
-        this.date = Date.now();
+        this.date = new Date;
         this.amount = amount;
         this.payee = payee;
     }
