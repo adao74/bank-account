@@ -39,8 +39,31 @@ class Transaction {
     }
 }
 
+class SavingsAccount extends BankAccount {
+
+    // B/c we are extending BankAccount, don't need to declare this.transactions in the constructor 
+    // Will still have access to the methods (e.g. this.balance, this.charge, etc)
+
+    constructor(accountNumber, owner, interestRate) {
+      super(accountNumber, owner);
+      this.interestRate = interestRate;
+    }
+
+    accrueInterest() {
+        return this.transactions.push(new Transaction(this.balance() * this.interestRate, "Bank Interest")) 
+    }
+}
+
 const myBankAccount = new BankAccount(1234567, "Andrea")
 myBankAccount.deposit(100, "Company X")
 myBankAccount.charge(20, "McDonalds")
 console.log(myBankAccount)
 console.log(myBankAccount.balance())
+
+
+const mySavingsAccount = new SavingsAccount(98765, "Andrea", 0.02)
+console.log(mySavingsAccount) //Unlike the browser, console.log logs the current value of a variable, not the value after the script is executed 
+mySavingsAccount.deposit(200, "Andrea")
+console.log(mySavingsAccount)
+mySavingsAccount.accrueInterest()
+console.log(mySavingsAccount)
